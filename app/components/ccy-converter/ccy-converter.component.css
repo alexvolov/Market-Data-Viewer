@@ -1,0 +1,20 @@
+.mdv-widget-container {
+    background-color: #CCCCCC;
+    width: 300px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5); 
+}
+
+.mdv-widget-header {
+    padding: 20px;
+    background-color: #B2B2B2;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1); 
+}
+
+.mdv-widget-body {
+    padding: 10px;
+}
+
+.mdv-currency-add {
+    padding: 10px;
+    background-color: green;
+}

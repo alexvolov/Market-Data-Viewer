@@ -1,0 +1,14 @@
+<div class="mdv-widget-container">
+    <div class="mdv-widget-header">
+        <h3>Currency Convertor</h3>
+    </div>
+    <div class="mdv-widget-body">
+        <div class="ui action input">
+            <input type="text" placeholder="Enter ISO code..." #currencyInput>
+            <button class="ui green icon button" (click)="onAddCurrency(currencyInput.value)">
+                <i class="add square icon"></i>
+            </button>
+        </div>
+        <ccy-list></ccy-list>
+    </div>
+</div>

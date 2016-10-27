@@ -1,6 +1,6 @@
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpModule } from '@angular/http';
+import { HttpModule, JsonpModule } from '@angular/http';
 
 import { CurrenciesService } from './services/currencies.service';
 import { AppComponent }   from './app.component';
@@ -9,7 +9,7 @@ import { CcyListComponent } from './components/ccy-list/ccy-list.component';
 import { CcyItemComponent } from './components/ccy-item/ccy-item.component';
 
 @NgModule({
-  imports:      [ BrowserModule, HttpModule ],
+  imports:      [ BrowserModule, HttpModule, JsonpModule ],
   declarations: [ AppComponent, CcyConverterComponent, CcyListComponent, CcyItemComponent ],
   bootstrap:    [ AppComponent ],
   providers:    [ CurrenciesService ]

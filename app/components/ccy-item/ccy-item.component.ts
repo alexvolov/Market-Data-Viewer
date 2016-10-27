@@ -15,7 +15,7 @@ export class CcyItemComponent {
     constructor(private currenciesService: CurrenciesService) { }
 
     onDeleteCcy() {
-        this.currenciesService.delete(this.currency.code);
+        this.currenciesService.delete(this.currency);
     }
 
     onAmountChange(amount: number) {

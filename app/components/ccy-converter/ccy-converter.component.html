@@ -1,28 +1,29 @@
 <div class="mdv-widget-container">
-    <div *ngIf="currenciesService.isLoading === false">
+    <div>
         <div class="mdv-widget-header">
             <h2>Currency Convertor</h2>
         </div>
-        <div class="mdv-widget-body">
+        <div class="mdv-widget-body" *ngIf="currenciesService.isLoading === false">
             <div class="ui action input">
-                <input type="text" placeholder="Enter ISO code..." #currencyInput>
-                <button class="ui green icon button" (click)="onAddCurrency(currencyInput.value)">
+                <input type="text" placeholder="Enter ISO code..." #currencyInput (keyup.enter)="onAddCurrency(currencyInput.value); currencyInput.value = ''">
+                <button class="ui green icon button" (click)="onAddCurrency(currencyInput.value); currencyInput.value = '';">
                     <i class="add square icon"></i>
                 </button>
             </div>
             <ccy-list></ccy-list>
         </div>
-        <div class="mdv-widget-footer">
+        <div class="mdv-widget-footer" *ngIf="currenciesService.isLoading === false">
             <button class="medium ui grey button" (click)="onUpdateRates()">
                 Update Rates
             </button>
         </div>
-    </div>
-    <div class="ui segment mdv-loader" *ngIf="currenciesService.isLoading === true">
-        <div class="ui active dimmer">
-        <div class="ui medium text loader">Loading</div>
+        <div class="ui segment mdv-loader" *ngIf="currenciesService.isLoading === true">
+            <div class="ui active dimmer">
+            <div class="ui medium text loader">Loading</div>
+            </div>
+            <p></p>
+            <p></p>
         </div>
-        <p></p>
-        <p></p>
-    </div>
+    </div>    
 </div>
+<ccy-chart></ccy-chart>

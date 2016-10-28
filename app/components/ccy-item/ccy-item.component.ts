@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 
 import { CurrenciesService } from '../../services/currencies.service';
 import { Currency } from '../../vo/currency';
@@ -11,11 +11,15 @@ import { Currency } from '../../vo/currency';
 export class CcyItemComponent {
     
     @Input() currency: Currency;
-    
+
     constructor(private currenciesService: CurrenciesService) { }
 
     onDeleteCcy() {
-        this.currenciesService.delete(this.currency);
+        if (this.currency.code != "USD") {
+            this.currenciesService.delete(this.currency);
+        } else {
+
+        }
     }
 
     onAmountChange(amount: number) {

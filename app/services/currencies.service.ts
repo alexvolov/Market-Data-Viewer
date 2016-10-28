@@ -16,20 +16,20 @@ export class CurrenciesService {
 
     constructor(private http: Http) {
         this.currencies = [{ code: 'USD', usdRate: 1, amount: 1 }, 
-                           { code: 'RUB', usdRate: 10.8174, amount: 0 }, 
-                           { code: 'BGN', usdRate: 10.8174, amount: 0 }, 
-                           { code: 'EUR', usdRate: 10.8174, amount: 0 }, 
-                           { code: 'CAD', usdRate: 10.8174, amount: 0 }, 
-                           { code: 'GBP', usdRate: 10.8174, amount: 0 }, 
-                           { code: 'HKD', usdRate: 10.8174, amount: 0 }, 
-                           { code: 'SGD', usdRate: 21.3899, amount: 0 }
+                           { code: 'RUB', usdRate: 1, amount: 1 }, 
+                           { code: 'BGN', usdRate: 1, amount: 1 }, 
+                           { code: 'EUR', usdRate: 1, amount: 1 }, 
+                           { code: 'CAD', usdRate: 1, amount: 1 }, 
+                           { code: 'GBP', usdRate: 1, amount: 1 }, 
+                           { code: 'HKD', usdRate: 1, amount: 1 }, 
+                           { code: 'SGD', usdRate: 1, amount: 1 }
                         ];
         this.isLoading = true;
     }
 
     add(ccyCode: string) {
         if (ccyCode != undefined && ccyCode != '') {
-            let ccy = this.getCurrencyByCode('USD');
+            let ccy = this.getCurrencyByCode(ccyCode);
             let index = this.currencies.indexOf(ccy, 0);
             if (index === -1) {
                 this.currencies.push(new Currency(ccyCode, 0, 0));
@@ -49,10 +49,10 @@ export class CurrenciesService {
         if (null === ccy) {
             ccy = this.getCurrencyByCode("USD");
         }
-        let usdAmount: number = (ccy.amount * ccy.usdRate);
+        let usdAmount = (ccy.amount / ccy.usdRate).toFixed(3);
         for (let c of this.currencies) {
             if (c.code != ccy.code) {
-                c.amount = Math.round((usdAmount * (c.usdRate)) * 100)/100;
+                c.amount = parseFloat((parseFloat(usdAmount) * c.usdRate).toFixed(3));
             }
         }
     }

@@ -3,7 +3,7 @@
         <button class="ui red icon button" (click)="onDeleteCcy()">
             <i class="trash outline icon"></i>
         </button>
-        <input type="number" placeholder="Enter amount..." min="0" [value]="currency.amount" #amount (keyup)="onAmountChange(amount.value)" (click)="onAmountChange(amount.value)">
+        <input type="number" placeholder="Enter amount..." min="0" [value]="currency.amount" #amount (keyup)="onAmountChange(amount.value)" (change)="onAmountChange(amount.value)">
         <div class="ui basic label">
             {{ currency.code }}
         </div>

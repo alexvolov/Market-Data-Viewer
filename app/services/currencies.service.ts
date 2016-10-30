@@ -12,6 +12,7 @@ export class CurrenciesService {
     private params: string = '&env=store://datatables.org/alltableswithkeys&format=json';
 
     public currencies: Currency[];
+    public ratesHistory;
     public isLoading: boolean;
 
     constructor(private http: Http) {
@@ -64,6 +65,27 @@ export class CurrenciesService {
                  .subscribe(res => this.refreshRates(res.json()));
     }
 
+    loadHistoricalData() {
+        this.isLoading = true;
+        let yql: string = 'select * from yahoo.finance.historicaldata where symbol in (' + this.getCurrencyListForHistData() + ') and startDate = "2016-09-20" and endDate = "2016-09-22"';
+        this.http.request(this.url + '?q=' + yql + this.params)
+                 .subscribe(res => this.refreshHistory(res.json()));
+    }
+
+    private refreshHistory(rates) {
+        /*this.ratesHistory = [
+             ['Date And Time', 'USD/EUR', 'USD/GBP'],
+             ['2004',  1000,      400],
+             ['2005',  1170,      460],
+             ['2006',  660,       1120],
+             ['2007',  1030,      540]
+        ];
+        for (let quote of rates.query.results) {
+            this.ratesHistory.
+        }*/
+        this.isLoading = false;
+    }
+
     private refreshRates(rates) {
         for (let rate of rates.query.results.rate) {
             for (let ccy of this.currencies) {
@@ -90,6 +112,17 @@ export class CurrenciesService {
         for (let code of this.currencies) {
             list += list === ''?'':',';
             list += '"USD' + code.code + '"';
+        }
+        return list;
+    }
+
+    private getCurrencyListForHistData(): string {
+        let list = '';
+        for (let code of this.currencies) {
+            if (code.code != "USD") {
+                list += list === ''?'':',';
+                list += '"' + code.code + '=X"';
+            }
         }
         return list;
     }

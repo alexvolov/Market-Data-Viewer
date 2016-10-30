@@ -2,6 +2,7 @@
     background-color: #CCCCCC;
     width: 300px;
     box-shadow: 0 0 10px rgba(0,0,0,0.5); 
+    float: left;
 }
 
 .mdv-widget-header {
@@ -31,3 +32,15 @@
     height: 400px;
 }
 
+.mdv-main {
+    float: left;
+}
+
+.mdv-line-chart {
+    float: left;
+    width: 800px;
+    height: 400px;
+    margin: 10px;
+}
+
+.chart {display: block; width: 100%;}

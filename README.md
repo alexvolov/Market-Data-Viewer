@@ -1,6 +1,6 @@
 # Market Data Viewer
 
-I've created this small app to improve my expertise in Angular 2. The latest version of the application allows you convert currencies and view historical data for each currency.
+I've created this small app to improve my expertise in Angular 2. The latest version of the application allows you convert currencies and view historical data for each currency. Yahoo finance is used to get quotes.
 
 
 ## Installation

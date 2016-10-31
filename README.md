@@ -12,3 +12,6 @@ I've created this small app to improve my expertise in Angular 2. The latest ver
 
 
 <img width="80%" src="https://raw.githubusercontent.com/alexvolov/market-data-viewer/master/img/market_data_viewer.png" "image 1"></img>
+
+
+Let me know if you have any questions: alevolov@gmail.com.

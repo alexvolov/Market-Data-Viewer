@@ -1,10 +1,17 @@
-<div>
+<div class="ui segment mdv-loader" *ngIf="currenciesService.isLoading === true">
+        <div class="ui active dimmer">
+        <div class="ui medium text loader">Loading</div>
+        </div>
+        <p></p>
+        <p></p>
+    </div>
+<div class="mdv-app" *ngIf="currenciesService.isLoading === false">
     <div class="mdv-widget-container">
         <div>
             <div class="mdv-widget-header">
                 <h2>Currency Convertor</h2>
             </div>
-            <div class="mdv-widget-body" *ngIf="currenciesService.isLoading === false">
+            <div class="mdv-widget-body">
                 <div class="ui action input">
                     <input type="text" placeholder="Enter ISO code..." #currencyInput (keyup.enter)="onAddCurrency(currencyInput.value); currencyInput.value = ''">
                     <button class="ui green icon button" (click)="onAddCurrency(currencyInput.value); currencyInput.value = '';">
@@ -13,29 +20,17 @@
                 </div>
                 <ccy-list></ccy-list>
             </div>
-            <div class="mdv-widget-footer" *ngIf="currenciesService.isLoading === false">
+            <div class="mdv-widget-footer">
                 <button class="medium ui grey button" (click)="onUpdateRates()">
                     Update Rates
                 </button>
             </div>
-            <div class="ui segment mdv-loader" *ngIf="currenciesService.isLoading === true">
-                <div class="ui active dimmer">
-                <div class="ui medium text loader">Loading</div>
-                </div>
-                <p></p>
-                <p></p>
-            </div>
         </div>    
     </div>
-    <div style="float: left; display: block; width: 900px;">
-        <canvas baseChart id="myChart"
-                    [data]="lineChartData"
-                    [labels]="lineChartLabels"
-                    [options]="lineChartOptions"
-                    [chartType]="lineChartType"
-                    (chartHover)="chartHovered($event)"
-                    (chartClick)="chartClicked($event)"></canvas>
-     </div>
+    <div class="mdv-chart-container"> 
+        <ccy-chart></ccy-chart>
+    </div>
 </div>
+
 
 

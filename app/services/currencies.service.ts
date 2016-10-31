@@ -65,25 +65,43 @@ export class CurrenciesService {
                  .subscribe(res => this.refreshRates(res.json()));
     }
 
-    loadHistoricalData() {
-        this.isLoading = true;
-        let yql: string = 'select * from yahoo.finance.historicaldata where symbol in (' + this.getCurrencyListForHistData() + ') and startDate = "2016-09-20" and endDate = "2016-09-22"';
+    loadHistoricalData(ccy: string, from: string, to:string) {
+        let yql: string = 'select * from yahoo.finance.historicaldata where symbol in ("' + ccy + '=X") and startDate = "' + from + '" and endDate = "' + to + '" | sort(field="Date")';
         this.http.request(this.url + '?q=' + yql + this.params)
                  .subscribe(res => this.refreshHistory(res.json()));
     }
 
+    getCurrenciesExcept(ccy: string) {
+        return this.currencies.filter(c => c.code != ccy);
+    }
+
+    public lineChartData:Array<any> = [
+        {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'}
+    ];
+    public lineChartLabels:Array<any> = ['January'];
+
     private refreshHistory(rates) {
-        /*this.ratesHistory = [
-             ['Date And Time', 'USD/EUR', 'USD/GBP'],
-             ['2004',  1000,      400],
-             ['2005',  1170,      460],
-             ['2006',  660,       1120],
-             ['2007',  1030,      540]
-        ];
-        for (let quote of rates.query.results) {
-            this.ratesHistory.
-        }*/
-        this.isLoading = false;
+        let _lineChartData = [];
+        let _lineChartLabels = [];
+        let ccy: string = '';
+        let values: Array<any> = [];
+        let isLabelsSet: boolean = false;
+        for (let quote of rates.query.results.quote) {                    
+            if (ccy === '' || ccy != quote.Symbol) {
+                if (ccy != '') {
+                    isLabelsSet = true;
+                }
+                ccy = quote.Symbol;
+                values = [];
+                _lineChartData.push({data: values, label: "USD" + '/' + ccy.substr(0, 3)});
+            }
+            values.push(parseFloat(quote.Close));
+            if (!isLabelsSet) {
+                _lineChartLabels.push(quote.Date);
+            }  
+        }
+        this.lineChartData = _lineChartData;
+        this.lineChartLabels = _lineChartLabels;
     }
 
     private refreshRates(rates) {
@@ -95,7 +113,7 @@ export class CurrenciesService {
             }
         }
         this.recalculateByCurrency(null);
-        this.isLoading = false;
+        this.isLoading = false;       
     }
 
     private getCurrencyByCode(code: string): Currency {
@@ -112,17 +130,6 @@ export class CurrenciesService {
         for (let code of this.currencies) {
             list += list === ''?'':',';
             list += '"USD' + code.code + '"';
-        }
-        return list;
-    }
-
-    private getCurrencyListForHistData(): string {
-        let list = '';
-        for (let code of this.currencies) {
-            if (code.code != "USD") {
-                list += list === ''?'':',';
-                list += '"' + code.code + '=X"';
-            }
         }
         return list;
     }

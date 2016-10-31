@@ -1,0 +1,12 @@
+<div style="chart">
+    <select class="ui dropdown" (change)="onCcyChanged($event.target.value)" #ccyDropDown>
+        <option *ngFor="let currency of currenciesService.getCurrenciesExcept('USD')" value="{{ currency.code }}">{{ currency.code }}</option>
+    </select>
+    <canvas baseChart 
+            [datasets]="currenciesService.lineChartData"
+            [labels]="currenciesService.lineChartLabels"
+            [options]="lineChartOptions"
+            [legend]="lineChartLegend"
+            [chartType]="lineChartType">
+    </canvas>
+</div>
